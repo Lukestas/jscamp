@@ -92,7 +92,7 @@ h1 + p {
 header {
   border-bottom: 1px solid var(--border);
   background: var(--background);
-  padding: .5rem 1rem;
+  padding: .5rem 1rem; 
   display: flex;
   align-items: center;
   justify-content: space-between;
