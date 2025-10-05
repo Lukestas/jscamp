@@ -83,6 +83,17 @@ h1 {
   text-wrap: balance;
 }
 
+@media (max-width: 660px) {
+  body{
+    color: red;
+  }
+
+  header{
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 h1 + p {
   text-wrap: balance;
   margin-bottom: 2rem
