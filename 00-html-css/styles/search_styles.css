@@ -209,10 +209,6 @@ main>section:nth-child(2) {
             margin-bottom: 0.7rem;
         }
 
-        p{
-            color: wheat;
-        }
-
         a {
             text-decoration: none;
             background-color: var(--primary-light);
