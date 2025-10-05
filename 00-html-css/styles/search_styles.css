@@ -202,10 +202,15 @@ main>section:nth-child(2) {
         padding: 1.2rem;
         align-items: flex-start;
         gap:1rem;
+        justify-content: space-between;
         small {
             color: var(--text-secondary);
             display: block;
             margin-bottom: 0.7rem;
+        }
+
+        p{
+            color: wheat;
         }
 
         a {
@@ -214,6 +219,7 @@ main>section:nth-child(2) {
             color: var(--text-primary);
             padding: 0.2rem 1rem;
             border-radius: 5px;
+        
         }
     }
 }
