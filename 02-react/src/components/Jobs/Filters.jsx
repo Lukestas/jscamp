@@ -1,18 +1,8 @@
-import { useState } from "react"
-
-export const Filters = ({ onFiltersChange }) => {
-    const [filters, SetFilters] = useState({
-        technology: "",
-        location: "",
-        level: "",
-        contract: "",
-    })
+export const Filters = ({ filters, setFilters }) => {
 
     const handleChange = (e) => {
         const { name, value } = e.target
-        const updatedFilters = { ...filters, [name]: value }
-        SetFilters(updatedFilters)
-        onFiltersChange(updatedFilters)
+        setFilters({ ...filters, [name]: value })
     }
 
     return (

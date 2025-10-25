@@ -1,4 +1,4 @@
-import  Header  from "./components/Header/Header"
+import { Header } from "./components/Header/Header"
 import { Footer } from "./components/Footer/Footer"
 import { Empleos } from "./Pages/Empleos"
 
@@ -8,7 +8,7 @@ function App() {
         <>
             <Header />
             <main>
-                {/*<Empleos />*/}
+                <Empleos />
             </main>
             <Footer />
         </>
