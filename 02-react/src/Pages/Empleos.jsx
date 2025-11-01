@@ -21,23 +21,25 @@ export function Empleos() {
         currentPage * RESULTS_PER_PAGE
     )
 
-    const handlefiltersChange = (newFilters)=>{
-        const filterJobs= jobsData.filter(job=>{
+    const handlefiltersChange = (newFilters) => {
+        const filterJobs = jobsData.filter(job => {
 
-            const matchTechnology= (typeof job.data.technology)==="object" 
-            ? !newFilters.technology || job.data.technology.includes(newFilters.technology)
-            : !newFilters.technology || job.data.technology===newFilters.technology
+            const matchTechnology = !newFilters.technology
+                || (Array.isArray(job.data.technology)
+                    ? job.data.technology.includes(newFilters.technology)
+                    : job.data.technology === newFilters.technology)
 
-            const matchLocation= !newFilters.location || job.data.location===newFilters.location
+            const matchLocation = !newFilters.location || job.data.location === newFilters.location
 
-            const matchExperience= !newFilters.experience || job.data.level===newFilters.experience
+            const matchExperience = !newFilters.experience || job.data.level === newFilters.experience
 
-            const matchContract= !newFilters.contract || job.data.contract===newFilters.contract
+            const matchContract = !newFilters.contract || job.data.contract === newFilters.contract
 
-            const matchSearch= !newFilters || job.descripcion.toLowerCase().includes(newFilters.search) || job.empresa.toLowerCase().includes(newFilters.search) || job.titulo.toLowerCase().includes(newFilters.search)
+            const matchSearch = !newFilters.search || job.descripcion.toLowerCase().includes(newFilters.search) || job.empresa.toLowerCase().includes(newFilters.search) || job.titulo.toLowerCase().includes(newFilters.search)
 
-            return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch && matchSearch
+            return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch
         })
+        console.log(filterJobs)
         setJobsFiltered(filterJobs)
         setCurrentPage(1)
     }
