@@ -1,48 +1,55 @@
 import { useState } from "react"
-import { Jobs } from "../components/Jobs/Jobs"
-import { Search } from "../components/Jobs/Search"
-import { Pagination } from "../components/Jobs/Pagination"
-import JobsData from "../data.json"
+import { JobsListing } from "../components/Jobs/JobsListingSection/JobsListing.jsx"
+import { SearchForm } from "../components/Jobs/SearchFormSection/SearchForm.jsx"
+import { Pagination } from "../components/Jobs/JobsListingSection/Pagination.jsx"
+import jobsData from "../data.json"
+
+const RESULTS_PER_PAGE = 5
 
 export function Empleos() {
-    const [filters, setFilters] = useState({
-        search: "",
-        contract: "",
-        location: "",
-        technology: "",
-        level: ""
-    })
+    const [currentPage, setCurrentPage] = useState(1)
+    const [jobsFiltered, setJobsFiltered] = useState(jobsData)
 
-    const filteredJobs = JobsData.filter((job) => {
-        const query = filters.search.toLowerCase();
+    const handePageChange = (page) => {
+        setCurrentPage(page)
+    }
 
-        const searchMatch = !query
-            || job.titulo.toLowerCase().includes(query)
-            || job.descripcion.toLowerCase().includes(query)
-            || job.empresa.toLowerCase().includes(query)
+    const totalPages = Math.ceil(jobsFiltered.length / RESULTS_PER_PAGE)
 
+    const pagedResults = jobsFiltered.slice(
+        (currentPage - 1) * RESULTS_PER_PAGE,
+        currentPage * RESULTS_PER_PAGE
+    )
 
-        const contractMatch = !filters.contract
-            || job.data.contract.toLowerCase() === filters.contract.toLowerCase()
+    const handlefiltersChange = (newFilters)=>{
+        const filterJobs= jobsData.filter(job=>{
 
-        const locationMatch = !filters.location
-            || job.data.modalidad.toLowerCase() === filters.location
+            const matchTechnology= (typeof job.data.technology)==="object" 
+            ? !newFilters.technology || job.data.technology.includes(newFilters.technology)
+            : !newFilters.technology || job.data.technology===newFilters.technology
 
-        const levelMatch = !filters.level
-            || job.data.nivel.toLowerCase() === filters.level.toLowerCase()
+            const matchLocation= !newFilters.location || job.data.location===newFilters.location
 
-        return searchMatch
-            && locationMatch
-            && contractMatch
-            && levelMatch
-    })
+            const matchExperience= !newFilters.experience || job.data.level===newFilters.experience
+
+            const matchContract= !newFilters.contract || job.data.contract===newFilters.contract
+
+            const matchSearch= !newFilters || job.descripcion.toLowerCase().includes(newFilters.search) || job.empresa.toLowerCase().includes(newFilters.search) || job.titulo.toLowerCase().includes(newFilters.search)
+
+            return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch && matchSearch
+        })
+        setJobsFiltered(filterJobs)
+        setCurrentPage(1)
+    }
+
 
 
     return (
         <>
-            <Search filters={filters} setFilters={setFilters} />
-            <Jobs jobs={filteredJobs} />
-            <Pagination />
+            <SearchForm onFiltersChange={handlefiltersChange} />
+            <JobsListing jobs={pagedResults} />
+            <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handePageChange} />
         </>
     )
 }
+

@@ -1,7 +1,9 @@
-export function SearchBar({filters,setFilters}) {
-    const handleChange=(e)=>{
-        const {name,value}=e.target
-        setFilters({...filters,[name]:value})
+export function SearchBar({ onChange }) {
+
+    const handleChange = (e) => {
+        e.preventDefault()
+        const { name, value } = e.target
+        onChange(name, value.toLowerCase())
     }
 
     return (
@@ -19,7 +21,6 @@ export function SearchBar({filters,setFilters}) {
                 required
                 type="text"
                 placeholder="Busca trabajos, empresas o habilidades"
-                value={filters.search}
                 onChange={handleChange}
             />
         </div>
