@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { JobsListing } from "../components/Jobs/JobsListingSection/JobsListing.jsx"
 import { SearchForm } from "../components/Jobs/SearchFormSection/SearchForm.jsx"
 import { Pagination } from "../components/Jobs/JobsListingSection/Pagination.jsx"
@@ -9,6 +9,12 @@ const RESULTS_PER_PAGE = 5
 export function SearchPage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [jobsFiltered, setJobsFiltered] = useState(jobsData)
+
+    useEffect(() => {
+        document.title = `Resultados: ${jobsFiltered.length}, Page: ${currentPage} - DevJobs`
+    }, [currentPage, jobsFiltered])
+
+    
 
     const handePageChange = (page) => {
         setCurrentPage(page)

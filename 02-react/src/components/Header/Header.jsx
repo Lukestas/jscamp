@@ -1,3 +1,5 @@
+import NavBar from "./NavBar";
+
 export function Header() {
     return (
         <header>
@@ -8,13 +10,7 @@ export function Header() {
                         fill="currentColor" fillRule="evenodd"></path>
                 </svg>DevJobs
             </h1>
-            <nav>
-                <a href="./">Inicio</a>
-                <a href="./search">Empleos</a>
-                <a href="">Empresas</a>
-                <a href="">Salarios</a>
-                <a href="https://www.instagram.com/lukestas" target="_blank" rel="noopener noreferrer">Instagram</a>
-            </nav>
+            <NavBar/>
             <div className="header-utilities">
                 <a href="">Subir CV</a>
                 {/* <devjobs-avatar service="github" username="Lukestas"></devjobs-avatar> */}
