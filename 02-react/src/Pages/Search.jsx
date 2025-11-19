@@ -6,7 +6,7 @@ import jobsData from "../data.json"
 
 const RESULTS_PER_PAGE = 5
 
-export function Empleos() {
+export function SearchPage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [jobsFiltered, setJobsFiltered] = useState(jobsData)
 
@@ -39,7 +39,6 @@ export function Empleos() {
 
             return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch
         })
-        console.log(filterJobs)
         setJobsFiltered(filterJobs)
         setCurrentPage(1)
     }
@@ -47,11 +46,11 @@ export function Empleos() {
 
 
     return (
-        <>
+        <main>
             <SearchForm onFiltersChange={handlefiltersChange} />
             <JobsListing jobs={pagedResults} />
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handePageChange} />
-        </>
+        </main>
     )
 }
 
