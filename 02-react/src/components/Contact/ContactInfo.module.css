@@ -1,19 +1,26 @@
-.contactInfo{
-    padding: 0 0 0;
-    margin: 0;
-    div{
-        display: flex;
-        gap: 2rem;
-        align-items: center;
-        padding: 2rem;
-        img{
-            width: 5rem;
-            height: 5rem;
+.contactInfo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: .5rem 5rem;
+    h2 {
+        margin-top: 1rem;
+    }
+
+    img {
+        width: 5rem;
+        height: 5rem;
+        border: 3px solid var(--hsla-example);
+
+        &:hover {
+            transition: 1s;
+            border: 3px solid gold;
         }
-        p{
-            color:var(--text-muted);
-            font-size: 1rem;
-            text-align: justify;
-        }
+    }
+
+    p {
+        margin-top: 1rem;
+        color: var(--text-muted);
+        font-size: 1rem;
     }
 }

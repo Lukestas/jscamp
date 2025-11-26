@@ -29,7 +29,7 @@
     }
 }
 
-button {
+.buttonApplyJob {
     padding: 0.75rem 1.5rem;
     background-color: var(--primary);
     border-radius: 0.5rem;
@@ -39,16 +39,7 @@ button {
     transition: all 0.2s;
     font-size: 1rem;
     
-}
-
-.but2ton {
-    
-    
-    
-    
-    
-    
-}
+}   
 
 .isApplied {
     background: #4caf50;

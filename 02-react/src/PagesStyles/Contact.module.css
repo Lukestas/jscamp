@@ -1,8 +1,13 @@
 .contact{
-    display: flex;
-    justify-content: center;
+    margin-top: 2rem;
+    text-align: center;
+    p{
+        margin-top: .5rem;
+        color: var(--text-muted);
+    }
     section{
-        width: 50%;
-        border: 2px solid var(--border);
+        margin: 0 auto;
+        padding: 1rem 0;
+        max-width: 920px;
     }
 }

@@ -9,7 +9,7 @@ export function JobCard({ job }) {
     }
 
     const buttonClasses = isApplied 
-    ? styles.isApplied
+    ? `${styles.buttonApplyJob} ${styles.isApplied}`
     : styles.buttonApplyJob
 
     const buttonText = isApplied ? "Aplicado!" : "Aplicar"
