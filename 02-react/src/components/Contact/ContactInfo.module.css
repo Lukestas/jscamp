@@ -1,0 +1,19 @@
+.contactInfo{
+    padding: 0 0 0;
+    margin: 0;
+    div{
+        display: flex;
+        gap: 2rem;
+        align-items: center;
+        padding: 2rem;
+        img{
+            width: 5rem;
+            height: 5rem;
+        }
+        p{
+            color:var(--text-muted);
+            font-size: 1rem;
+            text-align: justify;
+        }
+    }
+}

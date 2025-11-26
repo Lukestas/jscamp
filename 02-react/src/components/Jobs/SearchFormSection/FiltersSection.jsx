@@ -1,5 +1,6 @@
 import { Filter } from "./Filter"
 import { filtersList } from "./jobsFilters"
+import style from "./FilterSection.module.css"
 
 export const FiltersSection = ({ onChange }) => {
 
@@ -12,7 +13,7 @@ export const FiltersSection = ({ onChange }) => {
     ))
 
     return (
-        <div className="search-filters">
+        <div className={style.filtersSection}>
             {filtersData}
         </div>
     )

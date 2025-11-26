@@ -1,4 +1,5 @@
 import { useRouter } from "../hooks/useRouter"
+import styles from "../PagesStyles/Home.module.css"
 
 export function HomePage() {
     const { navigateTo } = useRouter()
@@ -13,7 +14,7 @@ export function HomePage() {
     }
 
     return (
-        <main>
+        <main className={styles.home}>
             <section>
                 <img src="./background.webp" width="200" />
 

@@ -3,18 +3,20 @@ import { JobsListing } from "../components/Jobs/JobsListingSection/JobsListing.j
 import { SearchForm } from "../components/Jobs/SearchFormSection/SearchForm.jsx"
 import { Pagination } from "../components/Jobs/JobsListingSection/Pagination.jsx"
 import jobsData from "../data.json"
+import useSearchForm from "../hooks/useSearchForm.jsx"
 
-const RESULTS_PER_PAGE = 5
+const RESULTS_PER_PAGE = 3
 
 export function SearchPage() {
     const [currentPage, setCurrentPage] = useState(1)
     const [jobsFiltered, setJobsFiltered] = useState(jobsData)
 
+    const { filtersChage, applyFilters } = useSearchForm()
+
     useEffect(() => {
         document.title = `Resultados: ${jobsFiltered.length}, Page: ${currentPage} - DevJobs`
     }, [currentPage, jobsFiltered])
 
-    
 
     const handePageChange = (page) => {
         setCurrentPage(page)
@@ -27,33 +29,18 @@ export function SearchPage() {
         currentPage * RESULTS_PER_PAGE
     )
 
-    const handlefiltersChange = (newFilters) => {
-        const filterJobs = jobsData.filter(job => {
-
-            const matchTechnology = !newFilters.technology
-                || (Array.isArray(job.data.technology)
-                    ? job.data.technology.includes(newFilters.technology)
-                    : job.data.technology === newFilters.technology)
-
-            const matchLocation = !newFilters.location || job.data.location === newFilters.location
-
-            const matchExperience = !newFilters.experience || job.data.level === newFilters.experience
-
-            const matchContract = !newFilters.contract || job.data.contract === newFilters.contract
-
-            const matchSearch = !newFilters.search || job.descripcion.toLowerCase().includes(newFilters.search) || job.empresa.toLowerCase().includes(newFilters.search) || job.titulo.toLowerCase().includes(newFilters.search)
-
-            return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch
-        })
-        setJobsFiltered(filterJobs)
+    const onFilterChange = (name, value) => {
+        const newFilter = filtersChage(name, value)
+        const filtered = applyFilters(jobsData, newFilter)
+        console.log(filtered)
+        setJobsFiltered(filtered)
         setCurrentPage(1)
     }
 
 
-
     return (
         <main>
-            <SearchForm onFiltersChange={handlefiltersChange} />
+            <SearchForm onFiltersChange={onFilterChange} />
             <JobsListing jobs={pagedResults} />
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handePageChange} />
         </main>

@@ -1,4 +1,5 @@
 import { useState } from "react"
+import styles from "./JobCard.module.css"
 
 export function JobCard({ job }) {
     const [isApplied, setIsApplied] = useState(false)
@@ -7,11 +8,14 @@ export function JobCard({ job }) {
         setIsApplied(true)
     }
 
-    const buttonClasses = isApplied ? "button-apply-job is-applied" : "buttpn-apply-job"
-    const buttonText = isApplied ? "Aplicado!!!" : "Aplicar"
+    const buttonClasses = isApplied 
+    ? styles.isApplied
+    : styles.buttonApplyJob
+
+    const buttonText = isApplied ? "Aplicado!" : "Aplicar"
     return (
         <article
-            className="job-listing-card"
+            className={styles.jobCard}
             data-location={job.data.location}
             data-nivel={job.data.nivel}
             data-contract={job.data.contract}

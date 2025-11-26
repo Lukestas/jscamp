@@ -1,8 +1,9 @@
 import NavBar from "./NavBar";
+import styles from "./Header.module.css"
 
 export function Header() {
     return (
-        <header>
+        <header className={styles.header}>
             <h1>
                 <svg className="h-8 w-8 text-primary" fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
                     <path clipRule="evenodd"
@@ -11,7 +12,7 @@ export function Header() {
                 </svg>DevJobs
             </h1>
             <NavBar/>
-            <div className="header-utilities">
+            <div>
                 <a href="">Subir CV</a>
                 {/* <devjobs-avatar service="github" username="Lukestas"></devjobs-avatar> */}
             </div>

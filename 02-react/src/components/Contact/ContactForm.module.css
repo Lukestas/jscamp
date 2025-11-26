@@ -1,0 +1,16 @@
+.contactForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    h2{
+        text-align: center;
+    }
+    form {
+        display: flex;
+        flex-direction: column;
+
+        input {
+            background-color: var(--input-bg);
+        }
+    }
+}
