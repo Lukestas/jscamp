@@ -1,4 +1,7 @@
 import { useState } from "react";
+import jobsData from "../data.json"
+
+const RESULTS_PER_PAGE = 5
 
 export default function useSearchForm() {
     const [filters, setFilters] = useState({
@@ -15,7 +18,7 @@ export default function useSearchForm() {
         return newFilters
     }
 
-    const applyFilters = (jobs, newFilters) => jobs.filter(job => {
+    const applyFilters = (newFilters) => jobsData.filter(job => {
 
         const matchTechnology = !newFilters.technology
             || (Array.isArray(job.data.technology)
@@ -33,6 +36,27 @@ export default function useSearchForm() {
         return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch
     })
 
+    const [currentPage, setCurrentPage] = useState(1)
+    const [jobsFiltered, setJobsFiltered] = useState(jobsData)
 
-    return { filtersChage, applyFilters }
+    const handePageChange = (page) => {
+        setCurrentPage(page)
+    }
+
+    const totalPages = Math.ceil(jobsFiltered.length / RESULTS_PER_PAGE)
+
+    const pagedResults = jobsFiltered.slice(
+        (currentPage - 1) * RESULTS_PER_PAGE,
+        currentPage * RESULTS_PER_PAGE
+    )
+
+    const onFilterChange = (name, value) => {
+        const newFilter = filtersChage(name, value)
+        const filtered = applyFilters(newFilter)
+        setJobsFiltered(filtered)
+        setCurrentPage(1)
+    }
+
+
+    return { filtersChage, applyFilters, currentPage, jobsFiltered, onFilterChange, pagedResults, totalPages, handePageChange }
 }
