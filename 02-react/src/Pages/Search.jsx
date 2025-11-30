@@ -7,17 +7,25 @@ import useSearchForm from "../hooks/useSearchForm.jsx"
 
 export function SearchPage() {
 
-    const { currentPage, jobsFiltered, onFilterChange, pagedResults, totalPages, handePageChange } = useSearchForm()
+    const {
+        currentPage,
+        jobs,
+        areActivedFilters,
+        clearFilters,
+        totalJobs,
+        isLoading,
+        onFilterChange,
+        totalPages,
+        handePageChange
+    } = useSearchForm()
 
-    useEffect(() => {
-        document.title = `Resultados: ${jobsFiltered.length}, Page: ${currentPage} - DevJobs`
-    }, [currentPage, jobsFiltered])
-
+    const title= isLoading? `Cargando... - DevJobs` : `Resultados: ${totalJobs}, Page: ${currentPage} - DevJobs`
 
     return (
         <main>
-            <SearchForm onFiltersChange={onFilterChange} />
-            <JobsListing jobs={pagedResults} />
+            <title>{title}</title>
+            <SearchForm onFiltersChange={onFilterChange} handleClearFilter={clearFilters} FiltersActives={areActivedFilters}/>
+            {isLoading ? <p>Cargando Empleos</p> : <JobsListing jobs={jobs} />}
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handePageChange} />
         </main>
     )

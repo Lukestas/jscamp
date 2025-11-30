@@ -12,5 +12,9 @@
 .jobsListing {
     border: 1px solid var(--border);
     border-radius: 1rem;
-    
+}
+.noJobs{
+    color:var(--text-muted);
+    font-size: 2rem;
+    text-align: center;
 }

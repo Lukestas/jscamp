@@ -1,8 +1,6 @@
-import useSearchForm from "../../../hooks/useSearchForm"
 import styles from "./Filter.module.css"
 
-export function Filter({ filter, onChange }) {
-    const {filters}= useSearchForm
+export function Filter({ filter, onChange, value }) {
 
     const optionsList = filter.options.map(option => (
         <option key={option.key} value={option.key}>

@@ -1,62 +1,90 @@
-import { useState } from "react";
-import jobsData from "../data.json"
+import { useEffect, useState } from "react";
 
-const RESULTS_PER_PAGE = 5
+const RESULTS_PER_PAGE = 3
+const InitialFilters = {
+    technology: "",
+    location: "",
+    experience: "",
+    contract: "",
+    search: ""
+}
+let timeoutId = null
 
 export default function useSearchForm() {
-    const [filters, setFilters] = useState({
-        technology: "",
-        location: "",
-        experience: "",
-        contract: "",
-        search: ""
-    })
+    const [filters, setFilters] = useState(InitialFilters)
+    const [jobs, setJobs] = useState([])
+    const [totalJobs, setTotalJobs] = useState(0)
+    const [isLoading, setIsLoading] = useState(true)
+    const [areActivedFilters, setAreActivedFilters] = useState(false)
+
+
+    const [currentPage, setCurrentPage] = useState(1)
+
+    useEffect(() => {
+        async function fetchJobs() {
+            try {
+                setIsLoading(true)
+
+                const params = new URLSearchParams()
+                if (filters.search) params.append('text', filters.search)
+                if (filters.technology) params.append('technology', filters.technology)
+                if (filters.location) params.append('type', filters.location)
+                if (filters.experience) params.append('level', filters.experience)
+
+                const offset = (currentPage - 1) * RESULTS_PER_PAGE
+                params.append("limit", RESULTS_PER_PAGE)
+                params.append("offset", offset)
+
+                const queryParams = params.toString()
+
+                const response = await fetch(`https://jscamp-api.vercel.app/api/jobs?${queryParams}`)
+                const responseToJSON = await response.json()
+                setJobs(responseToJSON.data)
+                setTotalJobs(responseToJSON.total)
+            } catch (error) {
+                console.error("error fetching jobs: ", error)
+            } finally {
+                setIsLoading(false)
+            }
+        }
+        fetchJobs()
+    }, [filters, currentPage])
+
+    const clearFilters = () => {
+        setFilters(InitialFilters)
+        setAreActivedFilters(false)
+        setCurrentPage(1)
+    }
 
     const filtersChage = (name, value) => {
         const newFilters = { ...filters, [name]: value }
+        if (name === "search") {
+            if (timeoutId) {
+                clearTimeout(timeoutId)
+            }
+
+            timeoutId = setTimeout(() => {
+                setFilters(newFilters)
+                setAreActivedFilters(true)
+            }, 500)
+
+            return newFilters
+        }
         setFilters(newFilters)
+        setAreActivedFilters(true)
         return newFilters
     }
-
-    const applyFilters = (newFilters) => jobsData.filter(job => {
-
-        const matchTechnology = !newFilters.technology
-            || (Array.isArray(job.data.technology)
-                ? job.data.technology.includes(newFilters.technology)
-                : job.data.technology === newFilters.technology)
-
-        const matchLocation = !newFilters.location || job.data.location === newFilters.location
-
-        const matchExperience = !newFilters.experience || job.data.level === newFilters.experience
-
-        const matchContract = !newFilters.contract || job.data.contract === newFilters.contract
-
-        const matchSearch = !newFilters.search || job.descripcion.toLowerCase().includes(newFilters.search) || job.empresa.toLowerCase().includes(newFilters.search) || job.titulo.toLowerCase().includes(newFilters.search)
-
-        return matchTechnology && matchLocation && matchExperience && matchContract && matchSearch
-    })
-
-    const [currentPage, setCurrentPage] = useState(1)
-    const [jobsFiltered, setJobsFiltered] = useState(jobsData)
 
     const handePageChange = (page) => {
         setCurrentPage(page)
     }
 
-    const totalPages = Math.ceil(jobsFiltered.length / RESULTS_PER_PAGE)
-
-    const pagedResults = jobsFiltered.slice(
-        (currentPage - 1) * RESULTS_PER_PAGE,
-        currentPage * RESULTS_PER_PAGE
-    )
+    const totalPages = Math.ceil(totalJobs / RESULTS_PER_PAGE)
 
     const onFilterChange = (name, value) => {
         const newFilter = filtersChage(name, value)
-        const filtered = applyFilters(newFilter)
-        setJobsFiltered(filtered)
         setCurrentPage(1)
     }
 
-
-    return { filtersChage, applyFilters, currentPage, jobsFiltered, onFilterChange, pagedResults, totalPages, handePageChange }
+    return { areActivedFilters, clearFilters, isLoading, filtersChage, totalJobs, currentPage, jobs, onFilterChange, totalPages, handePageChange }
 }

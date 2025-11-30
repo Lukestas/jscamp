@@ -2,7 +2,7 @@ import { FiltersSection } from "./FiltersSection.jsx"
 import { SearchBar } from "./SearchBar.jsx"
 import styles from "./SearchForm.module.css"
 
-export function SearchForm({ onFiltersChange }) {
+export function SearchForm({ onFiltersChange, handleClearFilter, FiltersActives }) {
 
     return (
         <section className={styles.jobsSearch}>
@@ -11,6 +11,7 @@ export function SearchForm({ onFiltersChange }) {
             <form id="empleos-search-form" role="search">
                 <SearchBar onChange={onFiltersChange} />
                 <FiltersSection onChange={onFiltersChange} />
+                {FiltersActives ? <button className={styles.clearFilters} onClick={handleClearFilter}>Limpiar Filtros</button>:""}
             </form>
         </section>
     )
