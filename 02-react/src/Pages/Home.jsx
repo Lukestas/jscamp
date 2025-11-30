@@ -15,6 +15,7 @@ export function HomePage() {
 
     return (
         <main className={styles.home}>
+            <title>Inicio - DevJobs</title>
             <section>
                 <img src="./background.webp" width="200" />
 

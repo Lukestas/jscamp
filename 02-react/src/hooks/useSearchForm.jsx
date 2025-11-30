@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const RESULTS_PER_PAGE = 3
 const InitialFilters = {
@@ -8,17 +8,15 @@ const InitialFilters = {
     contract: "",
     search: ""
 }
-let timeoutId = null
-
 export default function useSearchForm() {
     const [filters, setFilters] = useState(InitialFilters)
     const [jobs, setJobs] = useState([])
     const [totalJobs, setTotalJobs] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
     const [areActivedFilters, setAreActivedFilters] = useState(false)
-
-
     const [currentPage, setCurrentPage] = useState(1)
+
+    const timeoutId=useRef(null)
 
     useEffect(() => {
         async function fetchJobs() {
@@ -58,21 +56,19 @@ export default function useSearchForm() {
 
     const filtersChage = (name, value) => {
         const newFilters = { ...filters, [name]: value }
-        if (name === "search") {
-            if (timeoutId) {
-                clearTimeout(timeoutId)
+        if (name == "search") {
+            if (timeoutId.current) {
+                clearTimeout(timeoutId.current)
             }
 
-            timeoutId = setTimeout(() => {
+            timeoutId.current = setTimeout(() => {
                 setFilters(newFilters)
                 setAreActivedFilters(true)
             }, 500)
-
-            return newFilters
+            return
         }
         setFilters(newFilters)
         setAreActivedFilters(true)
-        return newFilters
     }
 
     const handePageChange = (page) => {
@@ -82,7 +78,7 @@ export default function useSearchForm() {
     const totalPages = Math.ceil(totalJobs / RESULTS_PER_PAGE)
 
     const onFilterChange = (name, value) => {
-        const newFilter = filtersChage(name, value)
+        filtersChage(name, value)
         setCurrentPage(1)
     }
 

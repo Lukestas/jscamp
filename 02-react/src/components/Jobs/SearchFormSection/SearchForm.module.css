@@ -22,6 +22,7 @@
 }
 
 .clearFilters{
+    margin-top: 1rem;
     padding: .5rem;
     border:none;
     border: 1px solid ;
