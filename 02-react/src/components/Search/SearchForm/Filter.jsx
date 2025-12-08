@@ -1,6 +1,6 @@
 import styles from "./Filter.module.css"
 
-export function Filter({ filter, onChange, value }) {
+export function Filter({DefaultFilterValue, filter, onChange }) {
 
     const optionsList = filter.options.map(option => (
         <option key={option.key} value={option.key}>
@@ -15,7 +15,7 @@ export function Filter({ filter, onChange, value }) {
     }
 
     return (
-        <select className={styles.filter} name={filter.field} onChange={handleChange}>
+        <select className={styles.filter} name={filter.field} defaultValue={DefaultFilterValue} onChange={handleChange}>
             <option value="">{filter.label}</option>
             {optionsList}
         </select>

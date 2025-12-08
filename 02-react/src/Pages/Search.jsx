@@ -15,7 +15,8 @@ export function SearchPage() {
         isLoading,
         onFilterChange,
         totalPages,
-        handePageChange
+        handePageChange,
+        filters
     } = useSearchForm()
 
     const title= isLoading? `Cargando... - DevJobs` : `Resultados: ${totalJobs}, Page: ${currentPage} - DevJobs`
@@ -23,7 +24,7 @@ export function SearchPage() {
     return (
         <main>
             <title>{title}</title>
-            <SearchForm onFiltersChange={onFilterChange} handleClearFilter={clearFilters} FiltersActives={areActivedFilters}/>
+            <SearchForm DefaultFilters={filters}onFiltersChange={onFilterChange} handleClearFilter={clearFilters} FiltersActives={areActivedFilters}/>
             {isLoading ? <p>Cargando Empleos</p> : <JobsListing jobs={jobs} />}
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handePageChange} />
         </main>

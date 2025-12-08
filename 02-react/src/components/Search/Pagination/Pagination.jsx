@@ -6,10 +6,16 @@ export function Pagination({ currentPage = 1, totalPages, onPageChange }) {
     const isFirstPage = currentPage === 1
     const isLastPage = currentPage === totalPages
 
+    const buildPageUrl=(page)=>{
+        const url=new URL(window.location)
+        url.searchParams.set('page',page)
+        return `${url.pathname}?${url.searchParams.toString()}`
+    }
+
     const navPages = pages.map(page => (
         <a
             key={page}
-            href="#"
+            href={buildPageUrl(page)}
             className={currentPage === page ? styles.isActive : ""}
             onClick={(event) => handleChangePage(event, page)}
         >
@@ -37,11 +43,13 @@ export function Pagination({ currentPage = 1, totalPages, onPageChange }) {
         }
     }
 
+    
+
 
     return (
         <nav className={styles.pagination}>
             {!isFirstPage && (
-                <a onClick={handlePrevClick} href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                <a onClick={handlePrevClick} href={buildPageUrl(currentPage-1)}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                     fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"
                     strokeLinecap="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-left">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none" />
@@ -49,7 +57,7 @@ export function Pagination({ currentPage = 1, totalPages, onPageChange }) {
                 </svg></a>
             )}
             {navPages}
-            {!isLastPage && (<a onClick={handleNextClick} href="#"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+            {!isLastPage && (<a onClick={handleNextClick} href={buildPageUrl(currentPage+1)}><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                 fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"
                 strokeLinecap="round" className="icon icon-tabler icons-tabler-outline icon-tabler-chevron-right">
                 <path stroke="none" d="M0 0h24v24H0z" fill="none" />

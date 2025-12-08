@@ -1,6 +1,6 @@
 import styles from "./SearchBar.module.css"
 
-export function SearchBar({ onChange }) {
+export function SearchBar({DefaultSearchValue, onChange }) {
 
     const handleChange = (e) => {
         e.preventDefault()
@@ -24,6 +24,7 @@ export function SearchBar({ onChange }) {
                 type="text"
                 placeholder="Busca trabajos, empresas o habilidades"
                 onChange={handleChange}
+                defaultValue={DefaultSearchValue}
             />
         </div>
     )
