@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react"
-import { JobsListing } from "../components/Jobs/JobsListingSection/JobsListing.jsx"
-import { SearchForm } from "../components/Jobs/SearchFormSection/SearchForm.jsx"
-import { Pagination } from "../components/Jobs/JobsListingSection/Pagination.jsx"
+import { JobsListing } from "../components/Search/JobsListing/JobsListing.jsx"
+import { SearchForm } from "../components/Search/SearchForm/SearchForm.jsx"
+import { Pagination } from "../components/Search/Pagination/Pagination.jsx"
 
 import useSearchForm from "../hooks/useSearchForm.jsx"
 
