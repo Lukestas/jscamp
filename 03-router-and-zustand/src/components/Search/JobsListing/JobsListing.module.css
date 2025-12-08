@@ -1,0 +1,20 @@
+.jobsInformation{
+    max-width: 1280px;
+    margin: 0 auto;
+    padding-inline: 1rem;
+    padding-top: 2rem;
+    h2{
+        font-size: 1.875rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+    }
+}
+.jobsListing {
+    border: 1px solid var(--border);
+    border-radius: 1rem;
+}
+.noJobs{
+    color:var(--text-muted);
+    font-size: 2rem;
+    text-align: center;
+}
