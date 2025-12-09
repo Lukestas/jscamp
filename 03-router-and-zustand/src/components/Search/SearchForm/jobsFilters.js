@@ -25,16 +25,9 @@ export const experienceLevels = [
     {key:"senior",name:"Senior"},
     {key:"lead",name:"Lead"},
 ]
-export const contractTypes = [
-    {key:"part",name:"Parcial"},
-    {key:"rotating ",name:"Rotativa"},
-    {key:"full",name:"Completa"},
-    {key:"temporary",name:"Temporal"},
-]
 
 export const filtersList=[
     {field:"technology",label:"Tecnología",options:technologies},
     {field:"location",label:"Ubicación",options:locations},
-    {field:"experience",label:"Nivel de Experiencia",options:experienceLevels},
-    {field:"contract",label:"Tipo de contrato",options:contractTypes}
+    {field:"experience",label:"Nivel de Experiencia",options:experienceLevels}
 ]

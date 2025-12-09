@@ -10,26 +10,27 @@ const InitialFilters = {
     search: ""
 }
 export default function useSearchForm() {
+    const { navigateTo } = useRouter()
     const [filters, setFilters] = useState(() => {
-        const params= new URLSearchParams(window.location.search)
+        const params = new URLSearchParams(window.location.search)
         return {
-            technology: params.get('technology')||"",
-            location: params.get('type')||"",
-            experience: params.get('level')||"",
-            search: params.get('text')||""
+            technology: params.get('technology') || "",
+            location: params.get('type') || "",
+            experience: params.get('level') || "",
+            search: params.get('text') || ""
         }
     })
+
+    const [currentPage, setCurrentPage] = useState(() => {
+        const params = new URLSearchParams(window.location.search)
+        const page = Number(params.get('page'))
+        return Number.isNaN(page) ? page : 1
+    })
+
     const [jobs, setJobs] = useState([])
     const [totalJobs, setTotalJobs] = useState(0)
     const [isLoading, setIsLoading] = useState(true)
     const [areActivedFilters, setAreActivedFilters] = useState(false)
-    const [currentPage, setCurrentPage] = useState(() => {
-        const params = new URLSearchParams(window.location.search)
-        const page = Number(params.get('page'))
-        return Number.isNaN ? page : 1
-    })
-
-    const { navigateTo } = useRouter()
 
     const timeoutId = useRef(null)
 
@@ -111,5 +112,5 @@ export default function useSearchForm() {
         setCurrentPage(1)
     }
 
-    return {filters, areActivedFilters, clearFilters, isLoading, filtersChage, totalJobs, currentPage, jobs, onFilterChange, totalPages, handePageChange }
+    return { filters, areActivedFilters, clearFilters, isLoading, filtersChage, totalJobs, currentPage, jobs, onFilterChange, totalPages, handePageChange }
 }

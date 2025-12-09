@@ -1,4 +1,5 @@
 import { useState } from "react"
+import { Link } from "../../Header/Link"
 import styles from "./JobCard.module.css"
 
 export function JobCard({ job }) {
@@ -22,11 +23,15 @@ export function JobCard({ job }) {
             data-technology={job.data.technology}
         >
             <div>
-                <h3>{job.titulo}</h3>
+                <Link href={`/job/${job.id}`}>{job.titulo}</Link>
                 <small>{job.empresa} | {job.ubicacion}</small>
                 <p>{job.descripcion}</p>
             </div>
-            <button className={buttonClasses} onClick={handleApplyClick}>{buttonText}</button>
+            <div className={styles.buttonsJobCard}>
+                <Link href={`/job/${job.id}`}>Ver detalles</Link>
+                <button className={buttonClasses} onClick={handleApplyClick}>{buttonText}</button>
+            </div>
+
         </article>
     )
 }
