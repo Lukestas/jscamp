@@ -1,17 +1,20 @@
+import { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router'
 import { Header } from "./components/Header/Header.jsx"
 import { Footer } from "./components/Footer/Footer.jsx"
-import { SearchPage } from "./Pages/Search.jsx"
-import { HomePage } from "./Pages/Home.jsx"
-import { ContactPage } from "./Pages/Contact.jsx"
-import { NotFoundPage } from "./Pages/NotFoundPage.jsx"
-import { JobDetail } from './components/JobDetail/JobDetail.jsx'
+
+const HomePage = lazy(() => import("./Pages/Home.jsx"))
+const SearchPage = lazy(() => import("./Pages/Search.jsx"))
+const ContactPage = lazy(() => import("./Pages/Contact.jsx"))
+const NotFoundPage = lazy(() => import("./Pages/NotFoundPage.jsx"))
+const JobDetail = lazy(() => import("./Pages/JobDetail.jsx"))
 
 function App() {
 
     return (
         <>
             <Header />
+            <Suspense fallback={<div>Cargando...</div>}>
             <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/search" element={<SearchPage />} />
@@ -19,6 +22,7 @@ function App() {
                 <Route path="/job/:jobId" element={<JobDetail />} />
                 <Route path="*" element={<NotFoundPage />} />
             </Routes>
+            </Suspense>
             <Footer />
         </>
     )

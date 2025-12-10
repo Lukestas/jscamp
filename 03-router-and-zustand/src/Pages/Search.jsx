@@ -5,7 +5,7 @@ import styles from "../PagesStyles/Search.module.css"
 
 import useSearchForm from "../hooks/useSearchForm.jsx"
 
-export function SearchPage() {
+export default function SearchPage() {
 
     const {
         currentPage,
@@ -20,12 +20,12 @@ export function SearchPage() {
         filters
     } = useSearchForm()
 
-    const title= isLoading? `Cargando... - DevJobs` : `Resultados: ${totalJobs}, Page: ${currentPage} - DevJobs`
+    const title = isLoading ? `Cargando... - DevJobs` : `Resultados: ${totalJobs}, Page: ${currentPage} - DevJobs`
 
     return (
         <main>
             <title>{title}</title>
-            <SearchForm DefaultFilters={filters}onFiltersChange={onFilterChange} handleClearFilter={clearFilters} FiltersActives={areActivedFilters}/>
+            <SearchForm DefaultFilters={filters} onFiltersChange={onFilterChange} handleClearFilter={clearFilters} FiltersActives={areActivedFilters} />
             {isLoading ? <p className={styles.jobsLoading}>Cargando Empleos</p> : <JobsListing jobs={jobs} />}
             <Pagination currentPage={currentPage} totalPages={totalPages} onPageChange={handePageChange} />
         </main>

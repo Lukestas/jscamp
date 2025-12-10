@@ -6,10 +6,10 @@ export function useRouter() {
     const location = useLocation()
 
     // memoize navigateTo so its identity is stable between renders
-    const navigateTo = useCallback((path) => {
+    const navigateTo = (path) => {
         console.log('Navegando a:', path)
         navigate(path)
-    }, [navigate])
+    }
 
     return { currentPath: location.pathname, navigateTo }
 }

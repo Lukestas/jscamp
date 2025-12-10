@@ -1,4 +1,4 @@
-import NavBar from "./NavBar";
+import { NavLink } from "react-router"
 import styles from "./Header.module.css"
 
 export function Header() {
@@ -11,7 +11,13 @@ export function Header() {
                         fill="currentColor" fillRule="evenodd"></path>
                 </svg>DevJobs
             </h1>
-            <NavBar/>
+            <nav>
+                <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/">Inicio</NavLink>
+                <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="./search">Empleos</NavLink>
+                <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/contact">Contacto</NavLink>
+                <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/Salaries">Salarios</NavLink>
+                <NavLink to="https://www.instagram.com/lukestas" target="_blank" rel="noopener noreferrer">Instagram</NavLink>
+            </nav>
             <div>
                 <a href="">Subir CV</a>
                 {/* <devjobs-avatar service="github" username="Lukestas"></devjobs-avatar> */}

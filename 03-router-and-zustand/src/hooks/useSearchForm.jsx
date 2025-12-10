@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useRouter } from '../hooks/useRouter'
+import { useSearchParams } from "react-router";
 
 const RESULTS_PER_PAGE = 3
 const InitialFilters = {
@@ -10,14 +11,14 @@ const InitialFilters = {
     search: ""
 }
 export default function useSearchForm() {
-    const { navigateTo } = useRouter()
+    const [searchParams, setSearchParams] = useSearchParams()
+
     const [filters, setFilters] = useState(() => {
-        const params = new URLSearchParams(window.location.search)
         return {
-            technology: params.get('technology') || "",
-            location: params.get('type') || "",
-            experience: params.get('level') || "",
-            search: params.get('text') || ""
+            technology: searchParams.get('technology') || "",
+            location: searchParams.get('type') || "",
+            experience: searchParams.get('level') || "",
+            search: searchParams.get('text') || ""
         }
     })
 
@@ -65,18 +66,17 @@ export default function useSearchForm() {
     }, [filters, currentPage])
 
     useEffect(() => {
-        const params = new URLSearchParams()
-        if (filters.search) params.append('text', filters.search)
-        if (filters.technology) params.append('technology', filters.technology)
-        if (filters.location) params.append('type', filters.location)
-        if (filters.experience) params.append('level', filters.experience)
-        if (currentPage > 1) params.append('page', currentPage)
+        setSearchParams((params) => {
+            if (filters.search) params.set('text', filters.search)
+            if (filters.technology) params.set('technology', filters.technology)
+            if (filters.location) params.set('type', filters.location)
+            if (filters.experience) params.set('level', filters.experience)
 
-        const newUrl = params.toString()
-            ? `${window.location.pathname}?${params.toString()}` : window.location.pathname
+            if (currentPage > 1) params.set('page', currentPage)
 
-        navigateTo(newUrl)
-    }, [filters, currentPage, navigateTo])
+            return params
+        })
+    }, [filters, currentPage, setSearchParams])
 
     const clearFilters = () => {
         setFilters(InitialFilters)

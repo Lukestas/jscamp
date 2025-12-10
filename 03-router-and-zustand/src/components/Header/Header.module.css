@@ -44,12 +44,10 @@
             color: var(--text-secondary);
             transition: color 0.2s;
             font-weight: 500;
-
-            &:hover,
-            &:focus {
-                color: var(--primary);
-                outline: none;
-            }
+        }
+        .isActive{
+            color: var(--primary-light);
+            pointer-events: none;
         }
     }
 

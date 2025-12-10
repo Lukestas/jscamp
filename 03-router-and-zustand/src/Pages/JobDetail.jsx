@@ -1,20 +1,9 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams, Link } from "react-router"
-import snarkdown from "snarkdown"
-import styles from "./JobDetail.module.css"
+import {JobSection} from '../components/JobDetail/JobSection'
+import styles from "../PagesStyles/JobDetail.module.css"
 
-function JobSection({ title, content }) {
-    const html = snarkdown(content)
-
-    return (
-        <section>
-            <h2>{title}</h2>
-            <div dangerouslySetInnerHTML={{ __html: html }} />
-        </section>
-    )
-}
-
-export function JobDetail() {
+export default function JobDetail() {
     const { jobId } = useParams()
     const [job, setJob] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
@@ -58,7 +47,7 @@ export function JobDetail() {
                 <span>/</span>
                 <span>{job.titulo}</span>
             </nav>
-            
+
             <header>
                 <div>
                     <h1>{job.titulo}</h1>
@@ -66,10 +55,10 @@ export function JobDetail() {
                 </div>
                 <button>Aplicar ahora</button>
             </header>
-            <JobSection title="Descripción del puesto" content={job.content.description}/>
-            <JobSection title="Responsabilidades" content={job.content.responsibilities}/>
-            <JobSection title="Requisitos" content={job.content.requirements}/>
-            <JobSection title="Aceca de la empresa" content={job.content.about}/>
+            <JobSection title="Descripción del puesto" content={job.content.description} />
+            <JobSection title="Responsabilidades" content={job.content.responsibilities} />
+            <JobSection title="Requisitos" content={job.content.requirements} />
+            <JobSection title="Aceca de la empresa" content={job.content.about} />
         </main>
     )
 }

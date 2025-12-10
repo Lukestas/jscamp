@@ -1,7 +1,7 @@
 import ContactForm from "../components/Contact/ContactForm";
 import ContactInfo from "../components/Contact/ContactInfo";
 import styles from "../PagesStyles/Contact.module.css"
-export function ContactPage(){
+export default function ContactPage(){
     return(
         <main className={styles.contact}>
             <title>Contartame - DevJobs</title>
