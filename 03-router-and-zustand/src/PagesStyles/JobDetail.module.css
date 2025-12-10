@@ -33,6 +33,10 @@
             padding: .7rem;
             cursor: pointer;
         }
+        :disabled{
+            background-color: var(--primary);
+            pointer-events: none;
+        }
     }
 
     section {

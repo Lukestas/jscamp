@@ -1,7 +1,9 @@
 import { NavLink } from "react-router"
 import styles from "./Header.module.css"
+import { useAuth } from "../../hooks/useAuth"
 
 export function Header() {
+    const {isLoggedIn,login,logout}=useAuth()
     return (
         <header className={styles.header}>
             <h1>
@@ -19,8 +21,7 @@ export function Header() {
                 <NavLink to="https://www.instagram.com/lukestas" target="_blank" rel="noopener noreferrer">Instagram</NavLink>
             </nav>
             <div>
-                <a href="">Subir CV</a>
-                {/* <devjobs-avatar service="github" username="Lukestas"></devjobs-avatar> */}
+                {!isLoggedIn ? <button onClick={login}>Iniciar Sesión</button> : <button onClick={logout}>Cerrar Sesión</button>}
             </div>
         </header>
     )

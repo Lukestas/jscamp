@@ -10,18 +10,17 @@ const NotFoundPage = lazy(() => import("./Pages/NotFoundPage.jsx"))
 const JobDetail = lazy(() => import("./Pages/JobDetail.jsx"))
 
 function App() {
-
     return (
         <>
             <Header />
             <Suspense fallback={<div>Cargando...</div>}>
-            <Routes>
-                <Route path="/" element={<HomePage />} />
-                <Route path="/search" element={<SearchPage />} />
-                <Route path="/contact" element={<ContactPage />} />
-                <Route path="/job/:jobId" element={<JobDetail />} />
-                <Route path="*" element={<NotFoundPage />} />
-            </Routes>
+                <Routes>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/contact" element={<ContactPage />} />
+                    <Route path="/job/:jobId" element={<JobDetail />} />
+                    <Route path="*" element={<NotFoundPage />} />
+                </Routes>
             </Suspense>
             <Footer />
         </>

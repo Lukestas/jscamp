@@ -51,15 +51,12 @@
         }
     }
 
-    div a {
+    button {
         padding: 0.5rem 1rem;
+        border: none;
+        cursor: pointer;
         border-radius: 0.5rem;
         background-color: #334155;
         color: var(--text-primary);
-        display: inline-block;
-        font-size: 0.875rem;
-        font-weight: 700;
-        text-decoration: none;
-        /* TODO */
     }
 }

@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react"
 import { useNavigate, useParams, Link } from "react-router"
-import {JobSection} from '../components/JobDetail/JobSection'
+import { JobSection } from '../components/JobDetail/JobSection'
 import styles from "../PagesStyles/JobDetail.module.css"
+import { useAuth } from "../hooks/useAuth"
 
 export default function JobDetail() {
+    const { isLoggedIn } = useAuth()
+
     const { jobId } = useParams()
+
     const [job, setJob] = useState(null)
     const [isLoading, setIsLoading] = useState(true)
     const [error, setError] = useState(null)
+
     const navigate = useNavigate()
 
     useEffect(() => {
@@ -53,7 +58,7 @@ export default function JobDetail() {
                     <h1>{job.titulo}</h1>
                     <p>{job.empresa} - {job.ubicacion}</p>
                 </div>
-                <button>Aplicar ahora</button>
+                <button className={!isLoading ? styles.isDisable : styles.isActive} disabled={!isLoggedIn} onClick={() => { console.log("Clic") }}>{isLoggedIn ? "Aplicar" : "Inicia sesión para aplicar"}</button>
             </header>
             <JobSection title="Descripción del puesto" content={job.content.description} />
             <JobSection title="Responsabilidades" content={job.content.responsibilities} />
