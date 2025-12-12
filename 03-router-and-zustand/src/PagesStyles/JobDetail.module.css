@@ -25,17 +25,33 @@
             color: var(--text-muted)
         }
 
-        button {
-            border: none;
-            background-color: var(--primary-light);
-            border-radius: 10px;
-            color: var(--primary-text);
-            padding: .7rem;
-            cursor: pointer;
-        }
-        :disabled{
-            background-color: var(--primary);
-            pointer-events: none;
+
+        >:nth-child(2) {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 5px;
+            button {
+                border: none;
+                background-color: var(--primary-light);
+                border-radius: 10px;
+                color: var(--primary-text);
+                padding: .7rem;
+                cursor: pointer;
+            }
+
+            :disabled {
+                background-color: var(--primary);
+                pointer-events: none;
+            }
+
+            .buttonFavorite {
+                font-size: 2rem;
+                padding: 0;
+                background: none;
+                border: none;
+                cursor: pointer;
+            }
         }
     }
 
@@ -66,6 +82,7 @@
     align-items: center;
     flex-direction: column;
     margin: 2rem;
+
     button {
         margin-top: 1rem;
         border: none;
@@ -76,7 +93,7 @@
     }
 }
 
-.loading{
+.loading {
     display: flex;
     flex-direction: column;
     align-items: center;

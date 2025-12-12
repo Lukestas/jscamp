@@ -1,3 +1,6 @@
+//FavoriteContext fue creado como practica para useContext
+//El verdadero Favorite es creado con Zustand
+
 import { createContext, useState } from "react";
 
 export const FavoritesContext = createContext()

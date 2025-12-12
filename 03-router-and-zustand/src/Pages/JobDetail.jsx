@@ -2,10 +2,14 @@ import { useEffect, useState } from "react"
 import { useNavigate, useParams, Link } from "react-router"
 import { JobSection } from '../components/JobDetail/JobSection'
 import styles from "../PagesStyles/JobDetail.module.css"
-import { useAuth } from "../hooks/useAuth"
+import { useAuthStore } from "../store/authStore"
+import { useFavoriteStore } from "../store/favoriteStore"
+//import { useAuth } from "../hooks/useAuth"
+
+
 
 export default function JobDetail() {
-    const { isLoggedIn } = useAuth()
+
 
     const { jobId } = useParams()
 
@@ -58,12 +62,35 @@ export default function JobDetail() {
                     <h1>{job.titulo}</h1>
                     <p>{job.empresa} - {job.ubicacion}</p>
                 </div>
-                <button className={!isLoading ? styles.isDisable : styles.isActive} disabled={!isLoggedIn} onClick={() => { console.log("Clic") }}>{isLoggedIn ? "Aplicar" : "Inicia sesión para aplicar"}</button>
+                <div>
+                    <JobApplyButton loading={isLoading} jobId={job.id} />
+                </div>
             </header>
             <JobSection title="Descripción del puesto" content={job.content.description} />
             <JobSection title="Responsabilidades" content={job.content.responsibilities} />
             <JobSection title="Requisitos" content={job.content.requirements} />
             <JobSection title="Aceca de la empresa" content={job.content.about} />
         </main>
+    )
+}
+
+function JobApplyButton({ loading, jobId }) {
+    const { isLoggedIn } = useAuthStore()
+    const { isFavorite, toggleFavorite } = useFavoriteStore()
+    return (
+        <>
+            <button
+                className={!loading
+                    ? styles.isDisable
+                    : styles.isActive}
+                disabled={!isLoggedIn}
+            >{isLoggedIn ? "Aplicar" : "Inicia sesión para aplicar"}
+            </button>
+            {isLoggedIn && <button
+                className={styles.buttonFavorite}
+                onClick={() => toggleFavorite(jobId)}>
+                {isFavorite(jobId) ? '💛' : '🤍'}
+            </button>}
+        </>
     )
 }

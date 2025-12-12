@@ -45,18 +45,33 @@
             transition: color 0.2s;
             font-weight: 500;
         }
-        .isActive{
+
+        .isActive {
             color: var(--primary-light);
             pointer-events: none;
         }
     }
 
-    button {
-        padding: 0.5rem 1rem;
-        border: none;
-        cursor: pointer;
-        border-radius: 0.5rem;
-        background-color: #334155;
-        color: var(--text-primary);
+    div {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        button {
+            padding: 0.5rem 1rem;
+            border: none;
+            cursor: pointer;
+            border-radius: 0.5rem;
+            background-color: #334155;
+            color: var(--text-primary);
+        }
+        a {
+            text-decoration: none;
+            border: 2px solid var(--border);
+            padding: 0 1rem;
+            border-radius: 0.5rem;
+            color: var(--primary-light);
+            transition: color 0.2s;
+            font-weight: 500;
+        }
     }
 }

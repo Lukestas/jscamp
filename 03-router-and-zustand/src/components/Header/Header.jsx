@@ -1,9 +1,10 @@
-import { NavLink } from "react-router"
+import { NavLink, useNavigate } from "react-router"
 import styles from "./Header.module.css"
-import { useAuth } from "../../hooks/useAuth"
+import { useAuthStore } from "../../store/authStore"
+import { useFavoriteStore } from "../../store/favoriteStore"
+//import { useAuth } from "../../hooks/useAuth"
 
 export function Header() {
-    const {isLoggedIn,login,logout}=useAuth()
     return (
         <header className={styles.header}>
             <h1>
@@ -17,12 +18,30 @@ export function Header() {
                 <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/">Inicio</NavLink>
                 <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="./search">Empleos</NavLink>
                 <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/contact">Contacto</NavLink>
-                <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/Salaries">Salarios</NavLink>
                 <NavLink to="https://www.instagram.com/lukestas" target="_blank" rel="noopener noreferrer">Instagram</NavLink>
             </nav>
-            <div>
-                {!isLoggedIn ? <button onClick={login}>Iniciar Sesión</button> : <button onClick={logout}>Cerrar Sesión</button>}
-            </div>
+
+            <SessionButton />
         </header>
+    )
+}
+
+function SessionButton() {
+    const { isLoggedIn, login, logout } = useAuthStore()
+    const { countFavorites } = useFavoriteStore()
+    const navigate=useNavigate()
+
+    const numberOfFavorites = countFavorites()
+    return (
+        <div>
+            {isLoggedIn &&
+                <NavLink
+                    className={({ isActive }) => isActive ? styles.isActive : ''}
+                    to="/profile"
+                >Perfil 💖{numberOfFavorites}
+                </NavLink>
+            }
+            {!isLoggedIn ? <button onClick={()=>navigate('/login')}>Iniciar Sesión</button> : <button onClick={logout}>Cerrar Sesión</button>}
+        </div>
     )
 }

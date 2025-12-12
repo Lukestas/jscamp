@@ -1,19 +1,13 @@
 import { useState } from "react"
 import { Link } from "../../Header/Link"
 import styles from "./JobCard.module.css"
+import { useFavoriteStore } from "../../../store/favoriteStore"
+import { useAuthStore } from "../../../store/authStore"
 
 export function JobCard({ job }) {
-    const [isApplied, setIsApplied] = useState(false)
 
-    const handleApplyClick = () => {
-        setIsApplied(true)
-    }
 
-    const buttonClasses = isApplied 
-    ? `${styles.buttonApplyJob} ${styles.isApplied}`
-    : styles.buttonApplyJob
 
-    const buttonText = isApplied ? "Aplicado!" : "Aplicar"
     return (
         <article
             className={styles.jobCard}
@@ -29,9 +23,42 @@ export function JobCard({ job }) {
             </div>
             <div className={styles.buttonsJobCard}>
                 <Link href={`/job/${job.id}`}>Ver detalles</Link>
-                <button className={buttonClasses} onClick={handleApplyClick}>{buttonText}</button>
+                <ApplyAndFavoriteButton jobId={job.id} />
             </div>
 
         </article>
+    )
+}
+
+function ApplyAndFavoriteButton({ jobId }) {
+    const { toggleFavorite, isFavorite } = useFavoriteStore()
+    const { isLoggedIn } = useAuthStore()
+    const [isApplied, setIsApplied] = useState(false)
+
+    const handleApplyClick = () => {
+        setIsApplied(true)
+    }
+
+    const buttonText = isApplied ? "Aplicado!" : "Aplicar"
+
+    const buttonClasses = isApplied
+        ? `${styles.buttonApplyJob} ${styles.isApplied}`
+        : styles.buttonApplyJob
+
+    return (
+        <>
+            <button
+                disabled={!isLoggedIn}
+                className={buttonClasses}
+                onClick={handleApplyClick}>
+                {buttonText}
+            </button>
+            <button
+                disabled={!isLoggedIn}
+                className={styles.buttonFavorite}
+                onClick={() => toggleFavorite(jobId)}>
+                {isFavorite(jobId) ? '💛' : '🤍'}
+            </button>
+        </>
     )
 }
