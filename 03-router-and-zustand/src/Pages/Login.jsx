@@ -4,7 +4,7 @@ import { LoginForm } from "../components/Login/LoginForm";
 
 export default function LoginPage() {
     return (
-        <main className={styles.login}>
+        <main className={styles.loginPage}>
             <title>Inicio de sesión - DevJobs</title>
             <h1>Bienvenido de nuevo</h1>
             <p>Inicia sesión para encontrar tu próximo empleo</p>

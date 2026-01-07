@@ -14,7 +14,7 @@ export function Header() {
                         fill="currentColor" fillRule="evenodd"></path>
                 </svg>DevJobs
             </h1>
-            <nav>
+            <nav className={styles.isActive}>
                 <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/">Inicio</NavLink>
                 <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="./search">Empleos</NavLink>
                 <NavLink className={({ isActive }) => isActive ? styles.isActive : ''} to="/contact">Contacto</NavLink>

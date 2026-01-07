@@ -7,9 +7,10 @@ const HomePage = lazy(() => import("./Pages/Home.jsx"))
 const SearchPage = lazy(() => import("./Pages/Search.jsx"))
 const ContactPage = lazy(() => import("./Pages/Contact.jsx"))
 const NotFoundPage = lazy(() => import("./Pages/NotFoundPage.jsx"))
-const JobDetail = lazy(() => import("./Pages/JobDetail.jsx"))
-const Login = lazy(() => import("./Pages/Login.jsx"))
-const Register= lazy(()=>import('./Pages/Register.jsx'))
+const JobDetailPage = lazy(() => import("./Pages/JobDetail.jsx"))
+const LoginPage = lazy(() => import("./Pages/Login.jsx"))
+const RegisterPage= lazy(()=>import('./Pages/Register.jsx'))
+const ProfilePage= lazy(()=>import('./Pages/Profile.jsx'))
 
 function App() {
     return (
@@ -20,9 +21,10 @@ function App() {
                     <Route path="/" element={<HomePage />} />
                     <Route path="/search" element={<SearchPage />} />
                     <Route path="/contact" element={<ContactPage />} />
-                    <Route path="/job/:jobId" element={<JobDetail />} />
-                    <Route path='/login' element={<Login />} />
-                    <Route path='/register' element={<Register />} />
+                    <Route path="/job/:jobId" element={<JobDetailPage />} />
+                    <Route path='/login' element={<LoginPage />} />
+                    <Route path='/register' element={<RegisterPage />} />
+                    <Route path='/profile' element={<ProfilePage/>}/>
                     <Route path="*" element={<NotFoundPage />} />
                 </Routes>
             </Suspense>
