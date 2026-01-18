@@ -1,0 +1,9 @@
+{
+  "name": "04-node",
+  "description": "this is a project with exercises about nodejs",
+  "authors": "Lukestas",
+  "version": "0.0.1",
+  "main": "index.js",
+  "dependencies": {},
+  "type": "module"
+}
