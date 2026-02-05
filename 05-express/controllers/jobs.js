@@ -9,23 +9,34 @@ export class JobController {
       level,
       limit = DEFAULTS.LIMIT_PAGINATION,
       technology,
+      type,
       offset = DEFAULTS.LIMIT_OFFSET,
     } = req.query;
 
+    const limitNumber = Number(limit);
+    const offsetNumber = Number(offset);
+
     const jobs = await JobModel.getAll({
       text,
-      title,
       level,
-      limit,
       technology,
-      offset,
+      type,
+      offset: offsetNumber,
+      limit: limitNumber,
+    });
+
+    console.log({
+      data: jobs,
+      total: jobs.length,
+      limitNumber,
+      offsetNumber,
     });
 
     return res.status(200).json({
-      data: jobs.paginatedJobs,
+      data: jobs.data,
       total: jobs.total,
-      limit: jobs.limitNumber,
-      offset: jobs.offsetNumber,
+      limit: limitNumber,
+      offset: offsetNumber,
     });
   }
   static async getId(req, res) {

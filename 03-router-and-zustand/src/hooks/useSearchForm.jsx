@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router';
 
-const RESULTS_PER_PAGE = 3;
+const RESULTS_PER_PAGE = 10;
 const InitialFilters = {
   technology: '',
   location: '',
@@ -50,9 +50,9 @@ export default function useSearchForm() {
         params.append('offset', offset);
 
         const queryParams = params.toString();
-
+        console.log(queryParams);
         const response = await fetch(
-          `http://localhost:1234/jobs?${queryParams}`,
+          `https://05-express.vercel.app/jobs?${queryParams}`,
         );
         const responseToJSON = await response.json();
         setJobs(responseToJSON.data);

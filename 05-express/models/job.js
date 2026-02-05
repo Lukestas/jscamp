@@ -2,41 +2,32 @@ import jobsData from '../data/jobs.json' with { type: 'json' };
 let jobs = jobsData;
 
 export class JobModel {
-  static async getAll({
-    text,
-    title,
-    level,
-    limit = 10,
-    technology,
-    offset = 0,
-  }) {
+  static async getAll({ text, level, limit, technology, type, offset }) {
     let filteredJobs = jobs;
+    const searchTerm = text ? text.toLowerCase() : '';
+    const technologyTerm = technology ? technology.toLowerCase() : '';
+    const typeTerm = type ? type.toLowerCase() : '';
+    const levelTerm = level ? level.toLowerCase() : '';
 
-    if (text) {
-      const searchTerm = text.toLowerCase();
-      filteredJobs = filteredJobs.filter(
-        (job) =>
-          job.titulo.toLowerCase().includes(searchTerm) ||
-          job.descripcion.toLowerCase().includes(searchTerm),
-      );
-    }
-    if (technology) {
-      const technologyTerm = technology.toLowerCase();
-      filteredJobs = filteredJobs.filter((job) =>
-        job.data.technology.toLowerCase().includes(technologyTerm),
-      );
-    }
-    const limitNumber = Number(limit);
-    const offsetNumber = Number(offset);
+    filteredJobs = jobs.filter((job) => {
+      const matchSearch =
+        !searchTerm ||
+        job.titulo.toLowerCase().includes(searchTerm) ||
+        job.descripcion.toLowerCase().includes(searchTerm);
+      const matchTechnology =
+        !technologyTerm || job.data.technology.includes(technologyTerm);
+      const matchType =
+        !typeTerm || job.data.modalidad.toLowerCase().includes(typeTerm);
+      const matchLevel =
+        !levelTerm || job.data.nivel.toLowerCase().includes(levelTerm);
+      const matchedJob =
+        matchSearch && matchTechnology && matchType && matchLevel;
+      return matchedJob;
+    });
 
-    const paginatedJobs = filteredJobs.slice(
-      offsetNumber,
-      offsetNumber + limitNumber,
-    );
+    const paginatedJobs = filteredJobs.slice(offset, offset + limit);
 
-    const total = filteredJobs.length;
-
-    return { paginatedJobs, limitNumber, offsetNumber, total };
+    return { data: paginatedJobs, total: filteredJobs.length };
   }
   static async getById({ id }) {
     const job = jobs.find((job) => job.id === id);
