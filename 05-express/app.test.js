@@ -30,13 +30,40 @@ describe('GET /jobs', () => {
     assert.strictEqual(response.status, 200);
 
     const json = await response.json();
-    console.log(json.data);
     assert.ok(
       json.data.every((job) => job.data.technology.includes(technology)),
       `Todos los trabajos deben incluir la tecnologia ${technology}`,
     );
   });
 });
+
+describe('POST /jobs',()=>{
+  test("debe responder con 201 y el array del trabajo creado",async()=>{
+    const newJob={
+    titulo: "TITLE TEST",
+    empresa: "COMPANY TEST",
+    ubicacion: "UBICATION TEST",
+    descripcion: "DESCRIPTION TEST",
+    data: {
+      technology: ["springboot", "angular", "typescript"],
+      modalidad: "remoto",
+      nivel: "senior"
+    },
+    content: {
+      description: "DESCRIPTION TEST.",
+      responsibilities: "RESPONSABILITIES TEST.",
+      requirements: "REQUIREMENTS TEST.",
+      about: "ABOUT TEST."
+    }
+  }
+    const response=await fetch(`${BASE_URL}/jobs`,{method: "POST",headers:{"Content-type":"application/json"},body: JSON.stringify(newJob)})
+
+    assert.strictEqual(response.status,201);
+    const json=await response.json();
+    assert.ok(json.data,"La respuesta debe contener data");
+    assert.strictEqual(json.titulo,newJob.titulo)
+  })
+})
 
 //Cierre de servidor
 after(async () => {
